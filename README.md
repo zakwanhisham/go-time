@@ -33,3 +33,14 @@ gotime -countdown=<time in seconds>
 ```bash
 gotime -timer`
 ```
+
+## TODO
+
+- [ ] Fix the text styling
+- [ ] Make the font larger
+- [ ] Make it more interactive
+- [ ] Add more feature
+  - [ ] Alarm
+  - [ ] Reminder
+  - [ ] Timer Alarm
+  - [ ] Countdown Alarm
