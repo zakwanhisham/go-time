@@ -16,6 +16,7 @@ make build
 ```bash
 git clone https://github.com/zakwanhisham/go-time.git
 make install
+# Put this on your rc file (.bashrc, .zshrc)
 export PATH=$PATH:~/.local/bin
 ```
 
