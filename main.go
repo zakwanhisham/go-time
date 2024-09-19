@@ -87,7 +87,7 @@ func (m model) View() string {
 		minutes := countTime / 60
 		seconds := countTime % 60
 		timeView = timeStyle.Render(fmt.Sprintf("%02d:%02d", minutes, seconds))
-		textView = textStyle.Render("Short Break")
+		textView = textStyle.Render("  Short Break")
 	} else {
 		textView = textStyle.Render("On Break, We'll be right back")
 		timeView = timeStyle.Render(m.time.Format("Mon, Jan 2 2006 \n 15:04:05"))
