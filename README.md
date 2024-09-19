@@ -9,8 +9,14 @@ and ![lipgloss](https://github.com/charmbracelet/lipgloss)
 ```bash
 git clone https://github.com/zakwanhisham/go-time.git
 make build
-mv gotime ~/.local/bin/
-export PATH=PATH:~/.local/bin
+```
+
+## How to install
+
+```bash
+git clone https://github.com/zakwanhisham/go-time.git
+make install
+export PATH=$PATH:~/.local/bin
 ```
 
 ## How to use
