@@ -14,11 +14,11 @@ import (
 type tickMsg time.Time
 
 type model struct {
-	time      time.Time
-	countdown *time.Duration
-	countup   *time.Duration
-	width     int
-	height    int
+	time    time.Time
+	timer   *time.Duration
+	countup *time.Duration
+	width   int
+	height  int
 }
 
 var (
@@ -52,8 +52,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tickMsg:
 		m.time = time.Time(msg)
-		if m.countdown != nil && *m.countdown > 0 {
-			*m.countdown -= time.Second
+		if m.timer != nil && *m.timer > 0 {
+			*m.timer -= time.Second
 		}
 		if m.countup != nil && *m.countup > 0 {
 			*m.countup += time.Second
@@ -73,13 +73,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	var timeView, textView string
-	if m.countdown != nil && *m.countdown > 0 {
-		remainingTime := int64(time.Duration(*m.countdown).Seconds())
+	if m.timer != nil && *m.timer > 0 {
+		remainingTime := int64(time.Duration(*m.timer).Seconds())
 		minutes := remainingTime / 60
 		seconds := remainingTime % 60
 		timeView = timeStyle.Render(fmt.Sprintf("%02d:%02d", minutes, seconds))
 		textView = textStyle.Render("Countdown in Progress")
-	} else if m.countdown != nil && *m.countdown <= 0 {
+	} else if m.timer != nil && *m.timer <= 0 {
 		timeView = timeStyle.Render("00:00")
 		textView = textStyle.Render("Time's Up")
 	} else if m.countup != nil && *m.countup >= 0 {
@@ -103,20 +103,21 @@ func (m model) View() string {
 }
 
 func main() {
-	var countdownArg string
+	var timerArg string
 	var countupFlag bool
+
 	flag.StringVar(
-		&countdownArg,
-		"countdown",
+		&timerArg,
+		"timer",
 		"",
-		"Countdown duration in seconds (e.g. -countdown=120)",
+		"Countdown timer duration in seconds (e.g. -countdown=120)",
 	)
 	flag.BoolVar(&countupFlag, "countup", false, "Countup mode")
 	flag.Parse()
 
 	var countdown *time.Duration
-	if countdownArg != "" {
-		countdownSec, err := strconv.Atoi(countdownArg)
+	if timerArg != "" {
+		countdownSec, err := strconv.Atoi(timerArg)
 		if err != nil {
 			fmt.Println("Invalid countdown value. Please provide a number in seconds.")
 			os.Exit(1)
@@ -131,7 +132,7 @@ func main() {
 		timer = &defaultTimerDuration
 	}
 
-	m := model{time: time.Now(), countdown: countdown, countup: timer}
+	m := model{time: time.Now(), timer: countdown, countup: timer}
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
