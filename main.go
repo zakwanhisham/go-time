@@ -16,7 +16,7 @@ type tickMsg time.Time
 type model struct {
 	time      time.Time
 	countdown *time.Duration
-	timer     *time.Duration
+	countup   *time.Duration
 	width     int
 	height    int
 }
@@ -55,8 +55,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if m.countdown != nil && *m.countdown > 0 {
 			*m.countdown -= time.Second
 		}
-		if m.timer != nil && *m.timer > 0 {
-			*m.timer += time.Second
+		if m.countup != nil && *m.countup > 0 {
+			*m.countup += time.Second
 		}
 		return m, tick()
 	case tea.KeyMsg:
@@ -82,8 +82,8 @@ func (m model) View() string {
 	} else if m.countdown != nil && *m.countdown <= 0 {
 		timeView = timeStyle.Render("00:00")
 		textView = textStyle.Render("Time's Up")
-	} else if m.timer != nil && *m.timer >= 0 {
-		countTime := int64(time.Duration(*m.timer).Seconds())
+	} else if m.countup != nil && *m.countup >= 0 {
+		countTime := int64(time.Duration(*m.countup).Seconds())
 		minutes := countTime / 60
 		seconds := countTime % 60
 		timeView = timeStyle.Render(fmt.Sprintf("%02d:%02d", minutes, seconds))
@@ -104,14 +104,14 @@ func (m model) View() string {
 
 func main() {
 	var countdownArg string
-	var timerFlag bool
+	var countupFlag bool
 	flag.StringVar(
 		&countdownArg,
 		"countdown",
 		"",
 		"Countdown duration in seconds (e.g. -countdown=120)",
 	)
-	flag.BoolVar(&timerFlag, "timer", false, "Timer mode")
+	flag.BoolVar(&countupFlag, "countup", false, "Countup mode")
 	flag.Parse()
 
 	var countdown *time.Duration
@@ -126,12 +126,12 @@ func main() {
 	}
 
 	var timer *time.Duration
-	if timerFlag {
+	if countupFlag {
 		defaultTimerDuration := time.Second
 		timer = &defaultTimerDuration
 	}
 
-	m := model{time: time.Now(), countdown: countdown, timer: timer}
+	m := model{time: time.Now(), countdown: countdown, countup: timer}
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
