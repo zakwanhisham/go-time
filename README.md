@@ -29,16 +29,16 @@ gotime
 
 ```
 
-- Countdown mode
-
-```bash
-gotime -countdown=<time in seconds>
-```
-
 - Timer mode
 
 ```bash
-gotime -timer`
+gotime -timer=<time in seconds>
+```
+
+- Countup mode
+
+```bash
+gotime -countup
 ```
 
 ## TODO
@@ -50,4 +50,3 @@ gotime -timer`
   - [ ] Alarm
   - [ ] Reminder
   - [ ] Timer Alarm
-  - [ ] Countdown Alarm
