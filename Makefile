@@ -2,7 +2,7 @@ all: build
 
 build:
 	@echo "Building....."
-	@go build -o gotime main.go
+	@go build -ldflags "-s -w" -o gotime main.go 
 
 install: build
 	@echo "Installing....."
