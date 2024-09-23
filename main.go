@@ -110,7 +110,7 @@ func main() {
 		&timerArg,
 		"timer",
 		"",
-		"Countdown timer duration in seconds (e.g. -countdown=120)",
+		"Countdown timer duration in seconds (e.g. -timer=120)",
 	)
 	flag.BoolVar(&countupFlag, "countup", false, "Countup mode")
 	flag.Parse()
