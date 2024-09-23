@@ -44,7 +44,7 @@ gotime -countup
 ## TODO
 
 - [ ] Fix the text styling
-- [ ] Add help flag
+- [x] Add help flag
 - [ ] Make the font larger
 - [ ] Make it more interactive
 - [ ] Add more feature
