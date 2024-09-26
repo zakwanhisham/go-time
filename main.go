@@ -31,10 +31,6 @@ var (
 			BorderForeground(lipgloss.Color("#c5c9c5")).
 			Align(lipgloss.Center)
 
-	textStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("c5c9c5")).
-			Align(lipgloss.Center)
-
 	emptyStyle = lipgloss.NewStyle()
 )
 
@@ -78,18 +74,14 @@ func (m model) View() string {
 		minutes := remainingTime / 60
 		seconds := remainingTime % 60
 		timeView = timeStyle.Render(fmt.Sprintf("%02d:%02d", minutes, seconds))
-		textView = textStyle.Render("Countdown in Progress")
 	} else if m.timer != nil && *m.timer <= 0 {
 		timeView = timeStyle.Render("00:00")
-		textView = textStyle.Render("Time's Up")
 	} else if m.countup != nil && *m.countup >= 0 {
 		countTime := int64(time.Duration(*m.countup).Seconds())
 		minutes := countTime / 60
 		seconds := countTime % 60
 		timeView = timeStyle.Render(fmt.Sprintf("%02d:%02d", minutes, seconds))
-		textView = textStyle.Render("  Short Break")
 	} else {
-		textView = textStyle.Render("On Break, We'll be right back")
 		timeView = timeStyle.Render(m.time.Format("Mon, Jan 2 2006 \n 15:04:05"))
 	}
 	combinedView := fmt.Sprintf("%s\n\n%s", textView, timeView)
