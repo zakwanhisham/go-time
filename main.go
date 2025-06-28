@@ -24,11 +24,8 @@ type model struct {
 var (
 	timeStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(lipgloss.Color("#c4b28a")).
-			Background(lipgloss.Color("#181616")).
 			Padding(1, 4).
 			Border(lipgloss.RoundedBorder()).
-			BorderForeground(lipgloss.Color("#c5c9c5")).
 			Align(lipgloss.Center)
 
 	emptyStyle = lipgloss.NewStyle()
